@@ -37,9 +37,7 @@ class _LoginState extends State<Login> {
         {
           if(state is ComLoginErrorState)
           {
-            return showToast(
-
-            );
+            return showToastWithMsg(state.error);
           }
           if(state is ComLoginSuccessState)
           {

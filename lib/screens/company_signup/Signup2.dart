@@ -49,7 +49,7 @@ class _Signup2State extends State<Signup2> {
 
       if(state is ComSignupErrorState)
       {
-        return showToast2();
+        return showToastWithMsg(state.error);
 
       }
     },
