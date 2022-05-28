@@ -12,6 +12,7 @@ Future main() async {
           () {
         runApp(
      MaterialApp(
+
       debugShowCheckedModeBanner: false,
       title: 'rescue',
       theme: ThemeData(
