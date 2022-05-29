@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:winch_project/screens/bloc_observer.dart';
 import 'package:winch_project/screens/company_signup/Signup2.dart';
+import 'package:winch_project/screens/splash.dart';
 
 
 Future main() async {
@@ -18,9 +19,9 @@ Future main() async {
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
-        brightness: Brightness.dark,
+        brightness: Brightness.light,
       ),
-      home:Signup2(),
+      home:Splash(),
       ) );
 
           },
