@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:winch_project/Home.dart';
 import 'package:winch_project/screens/colors.dart';
+import 'package:winch_project/screens/driver_home/home_driver.dart';
 import 'package:winch_project/screens/driver_login/cubit.dart';
 import 'package:winch_project/screens/driver_login/flutter_toast.dart';
 import 'package:winch_project/screens/driver_login/states.dart';
@@ -43,7 +44,7 @@ class _LoginState extends State<LoginDriver> {
           {
             Navigator.push(context, MaterialPageRoute(
                 builder: (BuildContext context) {
-                  return const Home();
+                  return const DriverHome();
                 }));
 
           }
