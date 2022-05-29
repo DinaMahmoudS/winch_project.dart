@@ -102,10 +102,9 @@ class _winchState extends State<winch> {
         ClipRRect(
           borderRadius: BorderRadius.circular(30),
           child: Image.asset(
-            'assets/images/logo.jpg',
-            width: 50,
+            'assets/images/logo.png',
             height: 50,
-            fit: BoxFit.cover,
+            width: 50,
           ),
         ),
         SizedBox(width: 10),
@@ -120,6 +119,13 @@ class _winchState extends State<winch> {
             ),
             SizedBox(
               height: 10,
+            ),
+            Text(
+              '${details.nationalID}',
+              style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ],
         ),

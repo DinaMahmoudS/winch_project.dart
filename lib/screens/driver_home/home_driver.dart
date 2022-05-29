@@ -66,10 +66,9 @@ class _DriverHomeState extends State<DriverHome> {
         ClipRRect(
           borderRadius: BorderRadius.circular(30),
           child: Image.asset(
-            'assets/images/logo.jpg',
-            width: 50,
+            'assets/images/logo.png',
             height: 50,
-            fit: BoxFit.cover,
+            width: 50,
           ),
         ),
         SizedBox(width: 10),
@@ -85,6 +84,14 @@ class _DriverHomeState extends State<DriverHome> {
             SizedBox(
               height: 10,
             ),
+            Text(
+              '${details.location}',
+              style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+
           ],
         ),
 
