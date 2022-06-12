@@ -6,6 +6,7 @@ import 'package:winch_project/screens/colors.dart';
 import 'package:winch_project/screens/company_login/cubit.dart';
 import 'package:winch_project/screens/company_login/flutter_toast.dart';
 import 'package:winch_project/screens/company_login/states.dart';
+import 'package:winch_project/screens/company_signup/Signup2.dart';
 import 'package:winch_project/screens/forgotpassword.dart';
 
 
@@ -197,6 +198,15 @@ class _LoginState extends State<Login> {
                                   )),
                           fallback:(context)=> CircularProgressIndicator(),
                         ),
+
+                        TextButton(
+                            onPressed: () {
+                              Navigator.push(context, MaterialPageRoute(
+                                  builder: (BuildContext context) {
+                                    return Signup2();
+                                  }));
+                            },
+                            child: const Text("Sign Up as Company")),
                       ]),
                 ),
 

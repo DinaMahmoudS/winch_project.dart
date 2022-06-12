@@ -60,42 +60,56 @@ class _DriverHomeState extends State<DriverHome> {
   Widget buildDriver(RequstWinsh details) => Padding(
     padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
 
-    child:   Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(30),
-          child: Image.asset(
-            'assets/images/logo.png',
-            height: 50,
-            width: 50,
+    child:   Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: Colors.grey,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: InkWell(
+          onTap: (){
+
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(30),
+                child: Image.asset(
+                  'assets/images/logo.png',
+                  height: 50,
+                  width: 50,
+                ),
+              ),
+              SizedBox(width: 10),
+              Column(
+                children: [
+                  Text(
+                    '${details.name}',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    '${details.location}',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+
+                ],
+              ),
+
+            ],
           ),
         ),
-        SizedBox(width: 10),
-        Column(
-          children: [
-            Text(
-              '${details.name}',
-              style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Text(
-              '${details.location}',
-              style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-
-          ],
-        ),
-
-      ],
+      ),
     ),
   );
 }

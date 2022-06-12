@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:winch_project/screens/colors.dart';
 import 'package:winch_project/screens/company_login/flutter_toast.dart';
 import 'package:winch_project/screens/company_signup/cubit.dart';
+import 'package:winch_project/screens/splash.dart';
 /*
 .collection("driver details")
 .where("comuID", "==", "VLfPaYesOGObVBRyrPtjDoak3aI2")
@@ -19,6 +21,7 @@ class request extends StatefulWidget {
 
   @override
   State<request> createState() => _requestState();
+
 
   Widget buildButton({
     required String title,
@@ -46,15 +49,28 @@ class request extends StatefulWidget {
 }
 
 class _requestState extends State<request> {
-  var dri_nameController = TextEditingController();
-  var dri_nationalIdController = TextEditingController();
-  var dri_phoneController = TextEditingController();
-  var dri_emailController = TextEditingController();
-  var dri_passwordController = TextEditingController();
-  var dri_platesController = TextEditingController();
+  late String _email = "" , name = "", phone ="", nationalID ="",plates ="";
+
   bool _isObscure = true;
   final formKey = GlobalKey<FormState>();
 
+  initState() {
+    super.initState();
+    
+    FirebaseFirestore.instance.collection("company details")
+    .doc("${FirebaseAuth.instance.currentUser!.uid}")
+    .get().then((value) => {
+      name = value.get("company_address"),
+      _email = value.get("name"),
+      phone = value.get("number"),
+      nationalID = value.get("number"),
+      plates = value.get("password"),
+
+    });
+    _email = "";
+    name = "";
+    phone = "";
+  }
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -91,7 +107,7 @@ class _requestState extends State<request> {
                           Padding(
                             padding: const EdgeInsets.only(left: 35),
                             child: Text(
-                              "Add your winch",
+                              "Profile Company",
                               style: TextStyle(
                                   fontSize: 25,
                                   fontWeight: FontWeight.bold,
@@ -125,17 +141,7 @@ class _requestState extends State<request> {
                                         bottom: BorderSide(
                                   color: Color(0xFF59769E),
                                 ))),
-                                child: TextFormField(
-                                  controller: dri_emailController,
-                                  decoration: InputDecoration(
-                                      hintText: "Winch driver Email",
-                                      prefixIcon: Icon(
-                                        Icons.person,
-                                        color: Mycolor.teal,
-                                      ),
-                                      border: InputBorder.none),
-                                  keyboardType: TextInputType.text,
-                                ),
+                                child: Text("${_email}",),
                               ),
                               Container(
                                 padding: EdgeInsets.all(10),
@@ -144,44 +150,7 @@ class _requestState extends State<request> {
                                         bottom: BorderSide(
                                   color: Color(0xFF59769E),
                                 ))),
-                                child: TextFormField(
-                                  controller: dri_passwordController,
-                                  validator: (value) {
-                                    if (value!.isEmpty) {
-                                      return 'please enter your password';
-                                    }
-                                    if (value.length < 6) {
-                                      return 'The password you entered is less than 6 characters';
-                                    }
-                                    onChanged:
-                                    (val) {
-                                      setState(() => dri_passwordController =
-                                          val as TextEditingController);
-                                    };
-                                  },
-                                  obscureText: _isObscure,
-                                  decoration: InputDecoration(
-                                      hintText: "Password",
-                                      suffixIcon: IconButton(
-                                        icon: Icon(
-                                          _isObscure
-                                              ? Icons.visibility_off
-                                              : Icons.visibility,
-                                          color: Mycolor.teal,
-                                        ),
-                                        onPressed: () {
-                                          setState(() {
-                                            _isObscure = !_isObscure;
-                                          });
-                                        },
-                                      ),
-                                      prefixIcon: Icon(
-                                        Icons.lock,
-                                        color: Mycolor.teal,
-                                      ),
-                                      border: InputBorder.none),
-                                  keyboardType: TextInputType.visiblePassword,
-                                ),
+                                child: Text("******",),
                               ),
                               Container(
                                 padding: EdgeInsets.all(10),
@@ -190,17 +159,7 @@ class _requestState extends State<request> {
                                         bottom: BorderSide(
                                   color: Color(0xFF59769E),
                                 ))),
-                                child: TextFormField(
-                                  controller: dri_nameController,
-                                  decoration: InputDecoration(
-                                      hintText: "Winch driver Name",
-                                      prefixIcon: Icon(
-                                        Icons.person,
-                                        color: Mycolor.teal,
-                                      ),
-                                      border: InputBorder.none),
-                                  keyboardType: TextInputType.text,
-                                ),
+                                child: Text("${name}",),
                               ),
                               Container(
                                 padding: EdgeInsets.all(10),
@@ -209,17 +168,7 @@ class _requestState extends State<request> {
                                         bottom: BorderSide(
                                   color: Color(0xFF59769E),
                                 ))),
-                                child: TextFormField(
-                                  controller: dri_nationalIdController,
-                                  decoration: InputDecoration(
-                                      hintText: "Driver National ID Number",
-                                      prefixIcon: Icon(
-                                        Icons.call_rounded,
-                                        color: Mycolor.teal,
-                                      ),
-                                      border: InputBorder.none),
-                                  keyboardType: TextInputType.number,
-                                ),
+                                child: Text("${nationalID}",),
                               ),
                               Container(
                                 padding: EdgeInsets.all(10),
@@ -228,17 +177,7 @@ class _requestState extends State<request> {
                                         bottom: BorderSide(
                                   color: Color(0xFF59769E),
                                 ))),
-                                child: TextFormField(
-                                  controller: dri_phoneController,
-                                  decoration: InputDecoration(
-                                      hintText: "Driver Phone Number",
-                                      prefixIcon: Icon(
-                                        Icons.call_rounded,
-                                        color: Mycolor.teal,
-                                      ),
-                                      border: InputBorder.none),
-                                  keyboardType: TextInputType.number,
-                                ),
+                                child: Text("${phone}",),
                               ),
                               Container(
                                 padding: EdgeInsets.all(10),
@@ -247,17 +186,7 @@ class _requestState extends State<request> {
                                         bottom: BorderSide(
                                   color: Color(0xFF59769E),
                                 ))),
-                                child: TextFormField(
-                                  controller: dri_platesController,
-                                  decoration: InputDecoration(
-                                      hintText: "Winch Plates Number",
-                                      prefixIcon: Icon(
-                                        Icons.call_rounded,
-                                        color: Mycolor.teal,
-                                      ),
-                                      border: InputBorder.none),
-                                  keyboardType: TextInputType.number,
-                                ),
+                                child: Text("${plates}",),
                               ),
                               const SizedBox(height: 10),
                               /* buildButton(
@@ -286,23 +215,14 @@ class _requestState extends State<request> {
                                     ),
                                   ),
                                   onPressed: () {
-                                    if (formKey.currentState!.validate()) {
-                                      ComSignupCubit.get(context).DrivSignup(
-                                        email: dri_emailController.text,
-                                        password: dri_passwordController.text,
-                                        name: dri_nameController.text,
-                                        nationalID: dri_nationalIdController.text,
-                                        phone: dri_phoneController.text,
-                                        plates: dri_platesController.text,
-                                        comuID: "${FirebaseAuth.instance.currentUser!.uid.toString()}",
-                                      );
-                                    } else {
-                                      showToastWithMsg("error ......");
-                                    }
+                                   FirebaseAuth.instance.signOut();
+                                    Navigator.push(context,
+                                        MaterialPageRoute(builder: (BuildContext context) {
+                                      return const Splash();
+                                    }));
                                     //  return Signup2();
-                                    showToastWithMsg("Added Loading ......");
                                   },
-                                  child: const Text('Add',
+                                  child: const Text('Logout',
                                       style: TextStyle(
                                         fontSize: 18,
                                       ))),
