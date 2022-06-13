@@ -1,5 +1,6 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:winch_project/profile.dart';
 import 'package:winch_project/screens/colors.dart';
 import 'package:winch_project/screens/request.dart';
 import 'package:winch_project/screens/winch.dart';
@@ -17,7 +18,7 @@ class _HomeState extends State<Home> {
   int index = 0;
   final screens = [
     winch(),
-    request(),
+    Profile(),
 
   ];
 

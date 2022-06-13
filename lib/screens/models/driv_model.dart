@@ -5,11 +5,13 @@ class DrivModel {
   late String nationalID;
   late String phone;
   late String plates;
+  late String status;
   late String uId;
   late String comuID;
 
   DrivModel({
     required this.email,
+    required this.status,
     required this.password,
     required this.name,
     required this.nationalID,
@@ -27,6 +29,7 @@ class DrivModel {
     nationalID = json['nationalID'];
     phone = json['phone'];
     plates = json['plates'];
+    status = json['status'];
     uId = json['uId'];
     comuID = json['comuID'];
   }
@@ -36,6 +39,7 @@ class DrivModel {
       'email':email,
       'password':password,
       'name':name,
+      'status':status,
       'nationalID':nationalID,
       'phone':phone,
       'plates':plates,

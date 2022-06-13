@@ -47,9 +47,10 @@ dependencies:
   firebase_core:
   cloud_firestore: ^3.1.5
   fluttertoast: ^8.0.9
-
-
-
+  google_maps_flutter: ^2.0.2
+  location:
+  permission_handler:
+  url_launcher: ^6.0.20
 
 dev_dependencies:
   flutter_test:

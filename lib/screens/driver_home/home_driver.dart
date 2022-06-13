@@ -1,8 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:winch_project/screens/colors.dart';
 
 import '../../pojo/driverdetails.dart';
 import '../../pojo/requst_from_user.dart';
+import 'InvitationScreen.dart';
 class DriverHome extends StatefulWidget {
   const DriverHome({Key? key}) : super(key: key);
 
@@ -17,7 +20,8 @@ class _DriverHomeState extends State<DriverHome> {
       body:Container(
         child: Column(
           children: <Widget>[
-            Expanded(child:StreamBuilder<List<RequstWinsh>>(
+
+        Expanded(child:StreamBuilder<List<RequstWinsh>>(
               stream: readDriver(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
@@ -67,47 +71,59 @@ class _DriverHomeState extends State<DriverHome> {
       ),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: InkWell(
-          onTap: (){
-
-          },
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(30),
-                child: Image.asset(
-                  'assets/images/logo.png',
-                  height: 50,
-                  width: 50,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(30),
+              child: Image.asset(
+                'assets/images/logo.png',
+                height: 50,
+                width: 50,
+              ),
+            ),
+            SizedBox(width: 10),
+            Column(
+              children: [
+                Text(
+                  '${details.name}',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
-              ),
-              SizedBox(width: 10),
-              Column(
-                children: [
-                  Text(
-                    '${details.name}',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w600,
-                    ),
+                SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  '${details.location}',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w600,
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    '${details.location}',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
+                ),
 
-                ],
-              ),
+                ElevatedButton(onPressed: (){
+                  FirebaseFirestore.instance.collection("requset winsh").doc(details.userid)
+                      .update({"status": "processing"}).then((value) => {
 
-            ],
-          ),
+                        FirebaseFirestore.instance.collection("driver details").doc("${FirebaseAuth.instance.currentUser!.uid}")
+                        .update({"status":"OFF"}).then((value) => {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (_) => InvitationScreen(
+                                uuid: details.userid,
+                              ))),
+                        })
+
+
+
+                  });
+                }, child: Text("Accept"))
+
+              ],
+            ),
+
+          ],
         ),
       ),
     ),

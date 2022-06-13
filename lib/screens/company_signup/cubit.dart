@@ -113,6 +113,7 @@ class ComSignupCubit extends Cubit<ComSignupStates> {
         name: name,
         nationalID: nationalID,
         phone: phone,
+        status: "ON",
         plates: plates,
         uId: uId,
         comuID: comuID);
