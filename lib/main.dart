@@ -5,7 +5,6 @@ import 'package:winch_project/screens/bloc_observer.dart';
 import 'package:winch_project/screens/company_signup/Signup2.dart';
 import 'package:winch_project/screens/splash.dart';
 
-
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
