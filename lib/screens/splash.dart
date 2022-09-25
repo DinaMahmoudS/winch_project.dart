@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:winch_project/screens/driver_login/login.dart';
 
 import 'company_login/login.dart';
+
 class Splash extends StatefulWidget {
   const Splash({Key? key}) : super(key: key);
 
@@ -25,8 +26,6 @@ class _SplashState extends State<Splash> {
             SizedBox(
               height: 20,
             ),
-
-
             Align(
               alignment: Alignment.center,
               child: ElevatedButton(
@@ -38,13 +37,11 @@ class _SplashState extends State<Splash> {
                     ),
                   ),
                   onPressed: () {
-
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) {
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (BuildContext context) {
                       return LoginDriver();
                     }));
-
-
-                    },
+                  },
                   child: const Text(
                     'Login as a driver',
                     style: TextStyle(
@@ -66,13 +63,10 @@ class _SplashState extends State<Splash> {
                     ),
                   ),
                   onPressed: () {
-                    Navigator.pushReplacement(context, MaterialPageRoute(
-                        builder: (BuildContext context) {
-                          return Login();
-                        }));
-
-
-
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (BuildContext context) {
+                      return Login();
+                    }));
                   },
                   child: const Text(
                     'Login as a company',
@@ -81,7 +75,6 @@ class _SplashState extends State<Splash> {
                     ),
                   )),
             ),
-
           ],
         ),
       ),

@@ -2,28 +2,28 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:winch_project/screens/colors.dart';
 import 'package:winch_project/screens/request.dart';
-import 'package:winch_project/screens/winch.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+
 class add extends StatefulWidget {
   const add({Key? key}) : super(key: key);
 
   @override
   State<add> createState() => _addState();
 }
+
 //first class
 class _addState extends State<add> {
   int index = 0;
   final screens = [
-    //const winch2(),
     const request(),
   ];
+
   @override
-  Widget build(BuildContext context)
-  =>Scaffold(
-    floatingActionButton: buildNavigateButton(),
+  Widget build(BuildContext context) => Scaffold(
+      floatingActionButton: buildNavigateButton(),
       extendBody: true,
       body: screens[index],
-      backgroundColor:Colors.white,
+      backgroundColor: Colors.white,
       bottomNavigationBar: Theme(
         data: Theme.of(context).copyWith(
           iconTheme: const IconThemeData(color: Colors.white),
@@ -38,40 +38,23 @@ class _addState extends State<add> {
           animationCurve: Curves.easeInOut,
           animationDuration: const Duration(milliseconds: 300),
           onTap: (index) => setState(() => this.index = index),
-
         ),
+      ));
 
-      )
-
-  );
-  Widget buildNavigateButton()=>FloatingActionButton.extended(
-    icon:Icon(Icons.add),
-    label:Text('Add winch'),
-    backgroundColor: Colors.blue,
-    onPressed: (){
-
-    },
-  );
-    final items = <Widget>[
-      ImageIcon(
-        AssetImage('assets/images/team.png'),
-        size: 30.0,
-      ),
-       ImageIcon(
-        AssetImage('assets/images/winch.png'),
-        size: 30.0,
-      ),
-
-    ];
-
-
+  Widget buildNavigateButton() => FloatingActionButton.extended(
+        icon: Icon(Icons.add),
+        label: Text('Add winch'),
+        backgroundColor: Colors.blue,
+        onPressed: () {},
+      );
+  final items = <Widget>[
+    ImageIcon(
+      AssetImage('assets/images/team.png'),
+      size: 30.0,
+    ),
+    ImageIcon(
+      AssetImage('assets/images/winch.png'),
+      size: 30.0,
+    ),
+  ];
 }
-
-
-
-
-
-
-
-
-

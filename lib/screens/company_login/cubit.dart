@@ -2,8 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:winch_project/screens/company_login/states.dart';
 
-
-
 class ComLoginCubit extends Cubit<ComLoginStates> {
   ComLoginCubit() : super(ComLoginInitialState());
 
@@ -12,22 +10,15 @@ class ComLoginCubit extends Cubit<ComLoginStates> {
   void ComLogin({
     required String email,
     required String password,
-
   }) {
     emit(ComLoginLoadingState());
 
-    FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email,
-        password: password
-    )
+    FirebaseAuth.instance
+        .signInWithEmailAndPassword(email: email, password: password)
         .then((value) {
       emit(ComLoginSuccessState());
-    })
-        .catchError((error) {
+    }).catchError((error) {
       emit(ComLoginErrorState(error.toString()));
     });
   }
 }
-
-
-

@@ -1,19 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:winch_project/screens/colors.dart';
 import 'package:winch_project/screens/company_login/flutter_toast.dart';
 import 'package:winch_project/screens/company_signup/cubit.dart';
 import 'package:winch_project/screens/company_signup/states.dart';
 import 'package:winch_project/screens/splash.dart';
-/*
-.collection("driver details")
-.where("comuID", "==", "VLfPaYesOGObVBRyrPtjDoak3aI2")
-*/
 import '../Home.dart';
 
 class Profile extends StatefulWidget {
@@ -21,7 +15,6 @@ class Profile extends StatefulWidget {
 
   @override
   State<Profile> createState() => _ProfileState();
-
 
   Widget buildButton({
     required String title,
@@ -49,7 +42,7 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  late String _email = "" , name = "", phone ="", nationalID ="",plates ="";
+  late String _email = "", address = "", phone = "", plates = "";
 
   bool _isObscure = true;
   final formKey = GlobalKey<FormState>();
@@ -57,20 +50,20 @@ class _ProfileState extends State<Profile> {
   initState() {
     super.initState();
 
-    FirebaseFirestore.instance.collection("company details")
+    FirebaseFirestore.instance
+        .collection("company details")
         .doc("${FirebaseAuth.instance.currentUser!.uid}")
-        .get().then((value) => {
-      name = value.get("company_address"),
-      _email = value.get("name"),
-      phone = value.get("number"),
-      nationalID = value.get("number"),
-      plates = value.get("password"),
-
-    });
+        .get()
+        .then((value) => {
+              address = value.get("company_address"),
+              _email = value.get("name"),
+              phone = value.get("number"),
+            });
     _email = "";
-    name = "";
+    address = "";
     phone = "";
   }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -81,8 +74,8 @@ class _ProfileState extends State<Profile> {
             FirebaseAuth.instance.signOut();
             Navigator.push(context,
                 MaterialPageRoute(builder: (BuildContext context) {
-                  return const Home();
-                }));
+              return const Home();
+            }));
           }
 
           if (state is ComSignupErrorState) {
@@ -93,148 +86,124 @@ class _ProfileState extends State<Profile> {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             home: Scaffold(
+              appBar: AppBar(
+                backgroundColor: Mycolor.darkblue,
+                shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(30),
+                        bottomLeft: Radius.circular(30))),
+                title: const Text(
+                  "Company Profile",
+                  style: TextStyle(fontSize: 25),
+                ),
+                centerTitle: true,
+              ),
               body: Container(
+                alignment: Alignment.center,
                 color: Mycolor.white,
                 child: SingleChildScrollView(
-                  child: Column(
-                    children: <Widget>[
-                      const SizedBox(
-                        height: 25,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 35),
-                            child: Text(
-                              "Profile Company",
-                              style: TextStyle(
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black),
-                            ),
-                          ),
-                          IconButton(
-                            icon: Icon(
-                              Icons.clear,
-                              color: Colors.black,
-                            ),
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                          )
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 30, left: 10),
-                        child: Form(
-                          key: formKey,
-                          child: Column(
+                  child: Padding(
+                    padding: EdgeInsets.all(20),
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          child:
+                              //InputField(),
+                              Column(
                             children: <Widget>[
                               Container(
-                                padding: EdgeInsets.all(10),
+                                padding: EdgeInsets.all(8),
                                 decoration: BoxDecoration(
                                     border: Border(
                                         bottom: BorderSide(
-                                          color: Color(0xFF59769E),
-                                        ))),
-                                child: Text("${_email}",),
+                                  color: Color(0xFF59769E),
+                                ))),
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.person,
+                                      color: Mycolor.teal,
+                                    ),
+                                    Text("   ${_email}",
+                                        style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 17))
+                                  ],
+                                ),
                               ),
+                              SizedBox(height: 30,),
                               Container(
-                                padding: EdgeInsets.all(10),
+                                padding: EdgeInsets.all(8),
                                 decoration: BoxDecoration(
                                     border: Border(
                                         bottom: BorderSide(
-                                          color: Color(0xFF59769E),
-                                        ))),
-                                child: Text("******",),
+                                  color: Color(0xFF59769E),
+                                ))),
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.call_rounded,
+                                      color: Mycolor.teal,
+                                    ),
+                                    Text(
+                                      "   ${phone}",
+                                      style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 17),
+                                    )
+                                  ],
+                                ),
                               ),
+                              SizedBox( height: 30,),
                               Container(
-                                padding: EdgeInsets.all(10),
+                                padding: EdgeInsets.all(8),
                                 decoration: BoxDecoration(
                                     border: Border(
                                         bottom: BorderSide(
-                                          color: Color(0xFF59769E),
-                                        ))),
-                                child: Text("${name}",),
+                                  color: Color(0xFF59769E),
+                                ))),
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.plagiarism,
+                                      color: Mycolor.teal,
+                                    ),
+                                    Text("   ${address}",
+                                        style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 17))
+                                  ],
+                                ),
                               ),
-                              Container(
-                                padding: EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                    border: Border(
-                                        bottom: BorderSide(
-                                          color: Color(0xFF59769E),
-                                        ))),
-                                child: Text("${nationalID}",),
-                              ),
-                              Container(
-                                padding: EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                    border: Border(
-                                        bottom: BorderSide(
-                                          color: Color(0xFF59769E),
-                                        ))),
-                                child: Text("${phone}",),
-                              ),
-                              Container(
-                                padding: EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                    border: Border(
-                                        bottom: BorderSide(
-                                          color: Color(0xFF59769E),
-                                        ))),
-                                child: Text("${plates}",),
-                              ),
-                              const SizedBox(height: 10),
-                              /* buildButton(
-                          title: 'Photo of the front of winch driver licence ',
-                          icon: Icons.image_outlined,
-                          prefixIcon: Mycolor.teal,
-                          onClicked: () {},
-                        ),
-                        const SizedBox(height: 10),
-                        buildButton(
-                          title: 'Photo of the front of winch licence  ',
-                          icon: Icons.image_outlined,
-                          prefixIcon: Mycolor.teal,
-                          onClicked: () {},
-                        ),
-                        const SizedBox(height: 30),*/
-                              ConditionalBuilder(
-                                condition:state is! ComSignupLoadingState,
-                                builder:(context)=>
-                                    ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                          primary: Mycolor.red,
-                                          fixedSize: const Size(300, 43),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(50.0),
-                                          ),
+                              const SizedBox(height: 30),
+                              Column(
+                                children: [
+                                  ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        primary: Mycolor.red,
+                                        fixedSize: const Size(300, 43),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(50.0),
                                         ),
-                                        onPressed: () {
-                                          FirebaseAuth.instance.signOut();
-                                          Navigator.push(context,
-                                              MaterialPageRoute(builder: (BuildContext context) {
-                                                return const Splash();
-                                              }));
-                                          //  return Signup2();
-                                        },
-                                        child: const Text('Logout',
-                                            style: TextStyle(
-                                              fontSize: 18,
-                                            ))),
-                                fallback:(context)=> CircularProgressIndicator(),
-                              ),
+                                      ),
+                                      onPressed: () {
+                                        FirebaseAuth.instance.signOut();
 
-                              const SizedBox(height: 20),
+                                        Navigator.push(context,
+                                            MaterialPageRoute(builder:
+                                                (BuildContext context) {
+                                          return Splash();
+                                        }));
+                                      },
+                                      child: const Text(
+                                          ''
+                                          'log out',
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                          ))),
+                                ],
+                              ),
+                              const SizedBox(height: 70),
                             ],
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -243,6 +212,5 @@ class _ProfileState extends State<Profile> {
         },
       ),
     );
-    //this the widget that contain body and appbar
   }
 }

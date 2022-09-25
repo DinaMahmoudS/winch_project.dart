@@ -14,25 +14,21 @@ class InvitationScreen extends StatefulWidget {
   InvitationScreen({Key? key, required this.uuid}) : super(key: key);
 
   @override
-  _InvitationScreenState createState() => _InvitationScreenState();}
+  _InvitationScreenState createState() => _InvitationScreenState();
+}
 
 class _InvitationScreenState extends State<InvitationScreen> {
   final loc.Location location = loc.Location();
   Completer<GoogleMapController> _controller = Completer();
-  late String name = "",phone ="", car="";
-
+  late String name = "", phone = "", car = "";
 
   @override
   void initState() {
     super.initState();
-    //_requestPermission();
-    location.changeSettings(
-        interval: 300, accuracy: loc.LocationAccuracy.high);
+    location.changeSettings(interval: 300, accuracy: loc.LocationAccuracy.high);
     location.enableBackgroundMode(enable: true);
     _getMyLocation();
-
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -51,10 +47,7 @@ class _InvitationScreenState extends State<InvitationScreen> {
           padding: const EdgeInsets.all(10),
           child: InkWell(
             onTap: () {
-              //print("getUsersUId "+_authClass.getUsersUId());
               _getMyLocation();
-              /* Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (_) => HomeScreen(email: "",)));*/
             },
             child: Container(
               alignment: Alignment.center,
@@ -86,7 +79,10 @@ class _InvitationScreenState extends State<InvitationScreen> {
                   : buildUser(user);
             } else if (snapshot.hasError) {
               return Center(
-                child: Text("error ${snapshot.error}", style: TextStyle(color: Colors.black),),
+                child: Text(
+                  "error ${snapshot.error}",
+                  style: TextStyle(color: Colors.black),
+                ),
               );
             } else {
               return Center(
@@ -100,7 +96,8 @@ class _InvitationScreenState extends State<InvitationScreen> {
   }
 
   Future<Google_Map?> readUser() async {
-    final me = FirebaseFirestore.instance.collection("maps").doc("${widget.uuid}");
+    final me =
+        FirebaseFirestore.instance.collection("maps").doc("${widget.uuid}");
     final snapshot = await me.get();
     if (snapshot.exists) {
       return Google_Map.fromJson(snapshot.data()!);
@@ -111,8 +108,12 @@ class _InvitationScreenState extends State<InvitationScreen> {
     return Container(
       child: GoogleMap(
         initialCameraPosition: CameraPosition(
-            target: LatLng(double.parse(user.latitude) ,double.parse(user.longitude)), zoom: 5.0, tilt: 0, bearing: 0),
-        onMapCreated:  (GoogleMapController controller) {
+            target: LatLng(
+                double.parse(user.latitude), double.parse(user.longitude)),
+            zoom: 5.0,
+            tilt: 0,
+            bearing: 0),
+        onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
         },
         myLocationEnabled: true,
@@ -122,8 +123,6 @@ class _InvitationScreenState extends State<InvitationScreen> {
       ),
     );
   }
-
-
 
   _getMyLocation() async {
     String id = FirebaseAuth.instance.currentUser!.uid;
@@ -140,29 +139,30 @@ class _InvitationScreenState extends State<InvitationScreen> {
   }
 
   Set<Marker> _createMarker(String LatLn, Lat) {
-    FirebaseFirestore.instance.collection("users").doc(widget.uuid).get().then((value) => {
-      name =  value.get("name").toString(),
-      phone =  value.get("number").toString(),
-      car =  value.get("car_model").toString(),
-    });
+    FirebaseFirestore.instance
+        .collection("users")
+        .doc(widget.uuid)
+        .get()
+        .then((value) => {
+              name = value.get("name").toString(),
+              phone = value.get("number").toString(),
+              car = value.get("car_model").toString(),
+            });
     return {
       Marker(
         markerId: MarkerId("marker_1"),
         position: LatLng(double.parse(LatLn), double.parse(Lat)),
         infoWindow: InfoWindow(
             title: '${name}',
-            onTap: (){
+            onTap: () {
               _launchURL("tel:+${phone}");
             },
             snippet: "phone ${phone} car model ${car}"),
       ),
-
-
     };
   }
 
   void _launchURL(String _url) async {
     if (!await launch(_url)) throw 'Could not launch $_url';
   }
-
 }

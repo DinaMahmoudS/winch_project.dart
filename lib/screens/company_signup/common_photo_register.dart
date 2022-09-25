@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:winch_project/screens/colors.dart';
 
-
-
 Widget buildButton({
   required String title,
   required IconData icon,
@@ -21,8 +19,9 @@ Widget buildButton({
         children: [
           Icon(icon, size: 28, color: Mycolor.teal),
           const SizedBox(width: 16),
-          Text(title
-            ,style: TextStyle(
+          Text(
+            title,
+            style: TextStyle(
               fontSize: 17,
             ),
           ),

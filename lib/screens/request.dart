@@ -7,10 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:winch_project/screens/colors.dart';
 import 'package:winch_project/screens/company_login/flutter_toast.dart';
 import 'package:winch_project/screens/company_signup/cubit.dart';
-/*
-.collection("driver details")
-.where("comuID", "==", "VLfPaYesOGObVBRyrPtjDoak3aI2")
-*/
 import '../Home.dart';
 import 'company_signup/states.dart';
 
@@ -65,8 +61,8 @@ class _requestState extends State<request> {
             FirebaseAuth.instance.signOut();
             Navigator.push(context,
                 MaterialPageRoute(builder: (BuildContext context) {
-                  return const Home();
-                }));
+              return const Home();
+            }));
           }
 
           if (state is ComSignupErrorState) {
@@ -123,8 +119,8 @@ class _requestState extends State<request> {
                                 decoration: BoxDecoration(
                                     border: Border(
                                         bottom: BorderSide(
-                                          color: Color(0xFF59769E),
-                                        ))),
+                                  color: Color(0xFF59769E),
+                                ))),
                                 child: TextFormField(
                                   controller: dri_emailController,
                                   decoration: InputDecoration(
@@ -142,8 +138,8 @@ class _requestState extends State<request> {
                                 decoration: BoxDecoration(
                                     border: Border(
                                         bottom: BorderSide(
-                                          color: Color(0xFF59769E),
-                                        ))),
+                                  color: Color(0xFF59769E),
+                                ))),
                                 child: TextFormField(
                                   controller: dri_passwordController,
                                   validator: (value) {
@@ -154,9 +150,9 @@ class _requestState extends State<request> {
                                       return 'The password you entered is less than 6 characters';
                                     }
                                     onChanged:
-                                        (val) {
+                                    (val) {
                                       setState(() => dri_passwordController =
-                                      val as TextEditingController);
+                                          val as TextEditingController);
                                     };
                                   },
                                   obscureText: _isObscure,
@@ -188,8 +184,8 @@ class _requestState extends State<request> {
                                 decoration: BoxDecoration(
                                     border: Border(
                                         bottom: BorderSide(
-                                          color: Color(0xFF59769E),
-                                        ))),
+                                  color: Color(0xFF59769E),
+                                ))),
                                 child: TextFormField(
                                   controller: dri_nameController,
                                   decoration: InputDecoration(
@@ -207,8 +203,8 @@ class _requestState extends State<request> {
                                 decoration: BoxDecoration(
                                     border: Border(
                                         bottom: BorderSide(
-                                          color: Color(0xFF59769E),
-                                        ))),
+                                  color: Color(0xFF59769E),
+                                ))),
                                 child: TextFormField(
                                   controller: dri_nationalIdController,
                                   decoration: InputDecoration(
@@ -226,8 +222,8 @@ class _requestState extends State<request> {
                                 decoration: BoxDecoration(
                                     border: Border(
                                         bottom: BorderSide(
-                                          color: Color(0xFF59769E),
-                                        ))),
+                                  color: Color(0xFF59769E),
+                                ))),
                                 child: TextFormField(
                                   controller: dri_phoneController,
                                   decoration: InputDecoration(
@@ -245,8 +241,8 @@ class _requestState extends State<request> {
                                 decoration: BoxDecoration(
                                     border: Border(
                                         bottom: BorderSide(
-                                          color: Color(0xFF59769E),
-                                        ))),
+                                  color: Color(0xFF59769E),
+                                ))),
                                 child: TextFormField(
                                   controller: dri_platesController,
                                   decoration: InputDecoration(
@@ -260,55 +256,43 @@ class _requestState extends State<request> {
                                 ),
                               ),
                               const SizedBox(height: 10),
-                              /* buildButton(
-                          title: 'Photo of the front of winch driver licence ',
-                          icon: Icons.image_outlined,
-                          prefixIcon: Mycolor.teal,
-                          onClicked: () {},
-                        ),
-                        const SizedBox(height: 10),
-                        buildButton(
-                          title: 'Photo of the front of winch licence  ',
-                          icon: Icons.image_outlined,
-                          prefixIcon: Mycolor.teal,
-                          onClicked: () {},
-                        ),
-                        const SizedBox(height: 30),*/
                               ConditionalBuilder(
-                                condition:state is! ComSignupLoadingState,
-                                builder:(context)=>
-                                    ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                          primary: Mycolor.red,
-                                          fixedSize: const Size(300, 43),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(50.0),
-                                          ),
-                                        ),
-                                        onPressed: () {
-                                          if (formKey.currentState!.validate()) {
-                                            ComSignupCubit.get(context).DrivSignup(
-                                              email: dri_emailController.text,
-                                              password: dri_passwordController.text,
-                                              name: dri_nameController.text,
-                                              nationalID: dri_nationalIdController.text,
-                                              phone: dri_phoneController.text,
-                                              plates: dri_platesController.text,
-                                              comuID: "${FirebaseAuth.instance.currentUser!.uid.toString()}",
-                                            );
-                                          } else {
-                                            showToastWithMsg("error ......");
-                                          }
-                                          //  return Signup2();
-                                          showToastWithMsg("Added Loading ......");
-                                        },
-                                        child: const Text('Add',
-                                            style: TextStyle(
-                                              fontSize: 18,
-                                            ))),
-                                fallback:(context)=> CircularProgressIndicator(),
+                                condition: state is! ComSignupLoadingState,
+                                builder: (context) => ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      primary: Mycolor.red,
+                                      fixedSize: const Size(300, 43),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(50.0),
+                                      ),
+                                    ),
+                                    onPressed: () {
+                                      if (formKey.currentState!.validate()) {
+                                        ComSignupCubit.get(context).DrivSignup(
+                                          email: dri_emailController.text,
+                                          password: dri_passwordController.text,
+                                          name: dri_nameController.text,
+                                          nationalID:
+                                              dri_nationalIdController.text,
+                                          phone: dri_phoneController.text,
+                                          plates: dri_platesController.text,
+                                          comuID:
+                                              "${FirebaseAuth.instance.currentUser!.uid.toString()}",
+                                        );
+                                      } else {
+                                        showToastWithMsg("error ......");
+                                      }
+                                      //  return Signup2();
+                                      showToastWithMsg("Added Loading ......");
+                                    },
+                                    child: const Text('Add',
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                        ))),
+                                fallback: (context) =>
+                                    CircularProgressIndicator(),
                               ),
-
                               const SizedBox(height: 20),
                             ],
                           ),

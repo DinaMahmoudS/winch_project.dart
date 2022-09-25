@@ -17,23 +17,23 @@ class RequstWinsh {
     required this.time,
   });
 
-static RequstWinsh fromJson(Map<String, dynamic> json) => RequstWinsh(
-    location: json['location'],
-    name: json['name'],
-    phone: json['phone'],
-    uuid: json['uuid'],
-    status: json['status'],
-    userid: json['userid'],
-    time: json['time'],
-  );
+  static RequstWinsh fromJson(Map<String, dynamic> json) => RequstWinsh(
+        location: json['location'],
+        name: json['name'],
+        phone: json['phone'],
+        uuid: json['uuid'],
+        status: json['status'],
+        userid: json['userid'],
+        time: json['time'],
+      );
 
   Map<String, dynamic> toJson() => {
-    'location': location,
-    'name': name,
-    'phone': phone,
-    'uuid': uuid,
-    'status': status,
-    'userid': userid,
-    'time': time,
-  };
+        'location': location,
+        'name': name,
+        'phone': phone,
+        'uuid': uuid,
+        'status': status,
+        'userid': userid,
+        'time': time,
+      };
 }

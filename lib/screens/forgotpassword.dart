@@ -39,8 +39,8 @@ class Forgot extends StatelessWidget {
                         decoration: BoxDecoration(
                             border: Border(
                                 bottom: BorderSide(
-                                  color: Color(0xFF59769E),
-                                ))),
+                          color: Color(0xFF59769E),
+                        ))),
                         child: TextField(
                           decoration: InputDecoration(
                               hintText: "Number",
@@ -57,8 +57,8 @@ class Forgot extends StatelessWidget {
                         decoration: BoxDecoration(
                             border: Border(
                                 bottom: BorderSide(
-                                  color: Color(0xFF59769E),
-                                ))),
+                          color: Color(0xFF59769E),
+                        ))),
                         child: TextField(
                           decoration: InputDecoration(
                               hintText: "Password",
@@ -76,8 +76,8 @@ class Forgot extends StatelessWidget {
                         decoration: BoxDecoration(
                             border: Border(
                                 bottom: BorderSide(
-                                  color: Color(0xFF59769E),
-                                ))),
+                          color: Color(0xFF59769E),
+                        ))),
                         child: TextField(
                           decoration: InputDecoration(
                               hintText: "Retype-Password",

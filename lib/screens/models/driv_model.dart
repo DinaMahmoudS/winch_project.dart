@@ -21,8 +21,7 @@ class DrivModel {
     required this.comuID,
   });
 
-  DrivModel.fromJason(Map<String, dynamic> json)
-  {
+  DrivModel.fromJason(Map<String, dynamic> json) {
     email = json['email'];
     password = json['password'];
     name = json['name'];
@@ -33,18 +32,18 @@ class DrivModel {
     uId = json['uId'];
     comuID = json['comuID'];
   }
-  Map<String, dynamic> toMap()
-  {
-    return{
-      'email':email,
-      'password':password,
-      'name':name,
-      'status':status,
-      'nationalID':nationalID,
-      'phone':phone,
-      'plates':plates,
-      'uId':uId,
-      'comuID':comuID,
+
+  Map<String, dynamic> toMap() {
+    return {
+      'email': email,
+      'password': password,
+      'name': name,
+      'status': status,
+      'nationalID': nationalID,
+      'phone': phone,
+      'plates': plates,
+      'uId': uId,
+      'comuID': comuID,
     };
   }
 }
